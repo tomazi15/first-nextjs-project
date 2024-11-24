@@ -1,10 +1,13 @@
-import React from "react";
-
-const SignInPage = async ({ params }: { params: { "sign-in": string } }) => {
+const SignInPage = async ({
+  params,
+}: {
+  params: Promise<{ "sign-in": string }>;
+}) => {
   console.log(await params);
-  console.log(await params["sign-in"][0]);
+  // console.log(await params["sign-in"][0]);
 
-  return <div>SignInPage: {await params["sign-in"][0]}</div>;
+  //TODO: Issue with types
+  // return <div>SignInPage: {await params["sign-in"]}</div>;
 };
 
 export default SignInPage;

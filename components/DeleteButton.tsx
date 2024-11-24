@@ -1,5 +1,5 @@
 "use client";
-import { deleteUser, removeUser } from "@/utils/actions";
+import { removeUser } from "@/utils/actions";
 
 const DeleteButton = ({ id }: { id: string }) => {
   const removeUserWithId = removeUser.bind(null, id);

@@ -1,5 +1,5 @@
-import { fetchUsers } from "@/utils/actions"
-import { NextRequest, NextResponse } from "next/server";
+import { fetchUsers, saveUser } from "@/utils/actions"
+import { NextRequest } from "next/server";
 
 
 export const GET = async (req: NextRequest) => {
@@ -10,6 +10,25 @@ export const GET = async (req: NextRequest) => {
     // console.log(id);
     console.log(req.nextUrl.searchParams.get('id'));
     
-    // const users = await fetchUsers()
-    return NextResponse.redirect(new URL('/', req.url));
+    try {
+        const users = await fetchUsers()
+        // return NextResponse.json({message: "user added", users: users, status: 200});
+        return  Response.json({"message": "successful", users})
+    } catch (error) {
+        console.log(error);
+        return Response.json({ message: "An expected error occured" }, { status: 500 });
+    }
+    
+
+    // return NextResponse.json(users);
+    return
+}
+
+export const POST = async (req: Request) => {
+    const user = await req.json()
+    const newUser = {...user, id: Date.now().toString()}
+    
+    await saveUser(newUser)
+
+    return Response.json({msg: 'user created'})
 }
